@@ -1,0 +1,19 @@
+# udev rules for 3D Global Shutter Stereo Camera (ID 32e4:9282)
+#
+# This file should be copied to /etc/udev/rules.d/99-stereo-camera.rules
+# After copying, reload udev rules with:
+#   sudo udevadm control --reload-rules
+#   sudo udevadm trigger
+#
+# The stereo camera creates two video devices. We create symlinks to identify them consistently.
+
+# Match the camera by vendor:product ID and create symlinks
+# The camera typically enumerates as two video devices
+# video2 -> left camera, video3 -> right camera (adjust KERNEL number if needed)
+
+SUBSYSTEM=="video4linux", ATTRS{idVendor}=="32e4", ATTRS{idProduct}=="9282", KERNEL=="video2", SYMLINK+="stereo_left", GROUP="video", MODE="0666"
+SUBSYSTEM=="video4linux", ATTRS{idVendor}=="32e4", ATTRS{idProduct}=="9282", KERNEL=="video3", SYMLINK+="stereo_right", GROUP="video", MODE="0666"
+
+# Alternative: If you want to match by device path index instead
+# SUBSYSTEM=="video4linux", ATTRS{idVendor}=="32e4", ATTRS{idProduct}=="9282", ATTR{index}=="0", SYMLINK+="stereo_left", GROUP="video", MODE="0666"
+# SUBSYSTEM=="video4linux", ATTRS{idVendor}=="32e4", ATTRS{idProduct}=="9282", ATTR{index}=="1", SYMLINK+="stereo_right", GROUP="video", MODE="0666"

@@ -1,0 +1,41 @@
+stereo_camera_publisher:
+  ros__parameters:
+    # Camera device (side-by-side stereo in single video stream)
+    # Use /dev/video2 for the actual camera (video3 is metadata only)
+    camera_device: "/dev/video2"
+
+    # Full side-by-side image resolution
+    # Supported: 2560x800, 2560x720, 1600x600, 1280x480, 640x240
+    # Each eye will be half the width (e.g., 1280x480 = two 640x480 images)
+    image_width: 1280
+    image_height: 480
+
+    # Frame rate in Hz (MJPG: up to 120fps, YUYV: up to 15fps at 1280x480)
+    frame_rate: 60.0
+
+    # ROS topic names
+    left_topic: "/stereo/left/image_raw"
+    right_topic: "/stereo/right/image_raw"
+
+    # TF frame IDs
+    left_frame_id: "stereo_left"
+    right_frame_id: "stereo_right"
+
+    # Camera parameters (values depend on camera capabilities)
+    # Exposure absolute: 1-10000 (higher = brighter, default=156)
+    # For good indoor lighting, try 2000-5000
+    exposure: 3000
+
+    # Gain: 0-255 (higher = brighter but more noise, default=100)
+    gain: 120
+
+    # Brightness: -64 to 64 (default=0)
+    brightness: 20
+
+    # Backlight compensation: 0-100 (default=64)
+    backlight_compensation: 100
+
+    # Optional: Camera calibration file URLs
+    # Format: file:///path/to/calibration.yaml
+    left_camera_info_url: ""
+    right_camera_info_url: ""
