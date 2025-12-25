@@ -11,7 +11,7 @@ stereo_camera_publisher:
     image_height: 480
 
     # Frame rate in Hz (MJPG: up to 120fps, YUYV: up to 15fps at 1280x480)
-    frame_rate: 60.0
+    frame_rate: 120.0
 
     # ROS topic names
     left_topic: "/stereo/left/image_raw"
@@ -24,16 +24,28 @@ stereo_camera_publisher:
     # Camera parameters (values depend on camera capabilities)
     # Exposure absolute: 1-10000 (higher = brighter, default=156)
     # For good indoor lighting, try 2000-5000
-    exposure: 3000
+    exposure: 260
 
     # Gain: 0-255 (higher = brighter but more noise, default=100)
-    gain: 120
+    gain: 150
 
     # Brightness: -64 to 64 (default=0)
-    brightness: 20
+    brightness: 0
 
     # Backlight compensation: 0-100 (default=64)
-    backlight_compensation: 100
+    backlight_compensation: 80
+
+    # Sharpness: 0-255 (higher = sharper, default=128)
+    sharpness: 128
+
+    # White balance automatic: 0=manual, 1=auto (default=1)
+    white_balance_automatic: 0
+
+    # Contrast: 0-255 (higher = more contrast, default=128)
+    contrast: 21
+
+    # Exposure dynamic framerate: 0=disabled, 1=enabled (default=1)
+    exposure_dynamic_framerate: 0
 
     # Optional: Camera calibration file URLs
     # Format: file:///path/to/calibration.yaml

@@ -51,6 +51,9 @@ private:
     int gain_;
     int brightness_;
     int backlight_compensation_;
+    int sharpness_;
+    int white_balance_automatic_;
+    int contrast_;
     std::string left_camera_info_url_;
     std::string right_camera_info_url_;
 

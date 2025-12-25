@@ -18,6 +18,9 @@ StereoCameraPublisher::StereoCameraPublisher()
     this->declare_parameter<int>("gain", 120);
     this->declare_parameter<int>("brightness", 20);
     this->declare_parameter<int>("backlight_compensation", 100);
+    this->declare_parameter<int>("sharpness", 12);
+    this->declare_parameter<int>("white_balance_automatic", 0);
+    this->declare_parameter<int>("contrast", 38);
     this->declare_parameter<std::string>("left_camera_info_url", "");
     this->declare_parameter<std::string>("right_camera_info_url", "");
 
@@ -34,6 +37,9 @@ StereoCameraPublisher::StereoCameraPublisher()
     this->get_parameter("gain", gain_);
     this->get_parameter("brightness", brightness_);
     this->get_parameter("backlight_compensation", backlight_compensation_);
+    this->get_parameter("sharpness", sharpness_);
+    this->get_parameter("white_balance_automatic", white_balance_automatic_);
+    this->get_parameter("contrast", contrast_);
     this->get_parameter("left_camera_info_url", left_camera_info_url_);
     this->get_parameter("right_camera_info_url", right_camera_info_url_);
 
@@ -88,7 +94,10 @@ bool StereoCameraPublisher::initialize()
                           " --set-ctrl=exposure_time_absolute=" + std::to_string(exposure_) +
                           " --set-ctrl=gain=" + std::to_string(gain_) +
                           " --set-ctrl=brightness=" + std::to_string(brightness_) +
-                          " --set-ctrl=backlight_compensation=" + std::to_string(backlight_compensation_);
+                          " --set-ctrl=backlight_compensation=" + std::to_string(backlight_compensation_) +
+                          " --set-ctrl=sharpness=" + std::to_string(sharpness_) +
+                          " --set-ctrl=white_balance_automatic=" + std::to_string(white_balance_automatic_) +
+                          " --set-ctrl=contrast=" + std::to_string(contrast_);
 
     RCLCPP_INFO(this->get_logger(), "Executing: %s", v4l2_cmd.c_str());
     int ret = system(v4l2_cmd.c_str());
@@ -99,6 +108,9 @@ bool StereoCameraPublisher::initialize()
         RCLCPP_INFO(this->get_logger(), "  gain=%d", gain_);
         RCLCPP_INFO(this->get_logger(), "  brightness=%d", brightness_);
         RCLCPP_INFO(this->get_logger(), "  backlight_compensation=%d", backlight_compensation_);
+        RCLCPP_INFO(this->get_logger(), "  sharpness=%d", sharpness_);
+        RCLCPP_INFO(this->get_logger(), "  white_balance_automatic=%d", white_balance_automatic_);
+        RCLCPP_INFO(this->get_logger(), "  contrast=%d", contrast_);
     } else {
         RCLCPP_ERROR(this->get_logger(), "Failed to set camera controls (exit code: %d)", ret);
         RCLCPP_ERROR(this->get_logger(), "Command was: %s", v4l2_cmd.c_str());

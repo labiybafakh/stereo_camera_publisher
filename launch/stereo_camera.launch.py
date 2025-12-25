@@ -14,41 +14,11 @@ def generate_launch_description():
     # Path to the config file
     config_file = os.path.join(package_dir, 'config', 'stereo_camera_params.yaml')
 
-    # Declare launch arguments
+    # Declare launch argument for config file path (optional override)
     config_arg = DeclareLaunchArgument(
         'config_file',
         default_value=config_file,
         description='Path to the configuration file'
-    )
-
-    image_width_arg = DeclareLaunchArgument(
-        'image_width',
-        default_value='1280',
-        description='Image width in pixels'
-    )
-
-    image_height_arg = DeclareLaunchArgument(
-        'image_height',
-        default_value='720',
-        description='Image height in pixels'
-    )
-
-    frame_rate_arg = DeclareLaunchArgument(
-        'frame_rate',
-        default_value='60.0',
-        description='Frame rate in Hz'
-    )
-
-    exposure_arg = DeclareLaunchArgument(
-        'exposure',
-        default_value='3000',
-        description='Exposure value (1-10000, higher=brighter)'
-    )
-
-    gain_arg = DeclareLaunchArgument(
-        'gain',
-        default_value='120',
-        description='Gain value (0-255, higher=brighter)'
     )
 
     # Create the stereo camera node
@@ -57,24 +27,10 @@ def generate_launch_description():
         executable='stereo_camera_node',
         name='stereo_camera_publisher',
         output='screen',
-        parameters=[
-            LaunchConfiguration('config_file'),
-            {
-                'image_width': LaunchConfiguration('image_width'),
-                'image_height': LaunchConfiguration('image_height'),
-                'frame_rate': LaunchConfiguration('frame_rate'),
-                'exposure': LaunchConfiguration('exposure'),
-                'gain': LaunchConfiguration('gain'),
-            }
-        ]
+        parameters=[LaunchConfiguration('config_file')]
     )
 
     return LaunchDescription([
         config_arg,
-        image_width_arg,
-        image_height_arg,
-        frame_rate_arg,
-        exposure_arg,
-        gain_arg,
         stereo_camera_node
     ])
