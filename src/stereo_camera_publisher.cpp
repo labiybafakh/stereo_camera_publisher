@@ -90,8 +90,7 @@ bool StereoCameraPublisher::initialize()
     // Set camera controls using v4l2-ctl for better control
     // Note: OpenCV's control setting is limited, so we use system commands
     std::string v4l2_cmd = "v4l2-ctl -d " + camera_device_ +
-                          " --set-ctrl=auto_exposure=1" +  // Manual exposure mode
-                          " --set-ctrl=exposure_time_absolute=" + std::to_string(exposure_) +
+                          " --set-ctrl=auto_exposure=3" +  // Auto exposure mode
                           " --set-ctrl=gain=" + std::to_string(gain_) +
                           " --set-ctrl=brightness=" + std::to_string(brightness_) +
                           " --set-ctrl=backlight_compensation=" + std::to_string(backlight_compensation_) +
